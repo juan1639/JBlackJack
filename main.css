@@ -1,0 +1,210 @@
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+html, body {
+	width: 100vw;
+	height: 100vh;
+}
+
+.contenedor__principal {
+	width: inherit;
+	height: inherit;
+	background-color: #888;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.contenedor__2do {
+	/* width: 500px; */
+	/* height: 550px; */
+    width: 90%;
+    height: 90%;
+	max-width: 800px;
+	background-color: inherit;
+	display: block;
+}
+
+.score__board {
+	width: 100%;
+	height: 9%;
+	border-radius: 7px 7px 0 0;
+	font-size: 24px;
+	text-shadow: 1px 1px 2px white;
+	background-color: #333;
+    padding: 0 2% 0 2%;
+	display: grid;
+	grid-template-columns: 27% repeat(30, 1fr);
+	align-items: center;
+	justify-content: left;
+}
+
+.jugador {
+    width: fit-content;
+    height: fit-content;
+    color: yellow;
+	margin-right: 1%;
+}
+
+.jug__cpu {
+	width: fit-content;
+    height: fit-content;
+    color: aquamarine;
+	margin-right: 1%;
+}
+
+.fichas__jugador {
+    width: 400%;
+    height: 90%;
+	background-image: url("./img/Chips/chipRedWhite_sideBorder.png");
+	/* background-image: url("./img/Chips/chipRedWhite_border.png"); */
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+}
+
+.cpu {
+	border-radius: 0 0 7px 7px;
+}
+
+.board {
+	width: 100%;
+	height: 80%;
+	border: 1px solid black;
+	background: linear-gradient(seagreen, green); 
+	display: grid;
+	grid-template: repeat(3, 1fr) / repeat(11, 1fr) 30%;
+	align-items: center;
+}
+
+.carta {
+	width: 200%;
+	height: 90%;
+	/* border: 1px solid burlywood; */
+	border-radius: 4px;
+	/* background-color: navajowhite; */
+	/* background-image: url("./img/Cards/cardClubs9.png"); */
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+}
+
+.mazo {
+	width: 200%;
+	height: 90%;
+	/* border: 1px solid burlywood; */
+	border-radius: 4px;
+	/* background-color: navajowhite; */
+	background-image: url(img/Cards/cardBack_blue3.png);
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	grid-area: 2/13;
+}
+
+.botones__enJuego {
+	width: 95%;
+	height: fit-content;
+	border-radius: 6px;
+	font-size: 24px;
+	font-weight: 700;
+	text-align: center;
+	cursor: pointer;
+	padding: 9px 25px 9px 25px;
+	outline: none;
+}
+	
+.botones__enJuego:active {
+	transform: translate(-2px, -4px);
+}
+
+#boton__pedirCarta:hover {
+	background-color: aquamarine;
+}
+
+#boton__pedirCarta {
+	border: 1px solid rgb(40, 93, 207);
+	color: beige;
+	background-color: royalblue;
+	text-shadow: 2px 2px 2px darkblue;
+	box-shadow: inset 0 -0.5em 0 -0.35em rgba(0, 0, 0, 0.45);
+	grid-area: 2/12;
+	overflow: hidden;
+	align-self: flex-start;
+}
+
+#boton__plantarse {
+	border: 1px solid rgb(228, 23, 23);
+	color: beige;
+	background-color: red;
+	text-shadow: 2px 2px 2px darkred;
+	box-shadow: inset 0 -0.5em 0 -0.35em rgba(0, 0, 0, 0.45);
+	grid-area: 2/12;
+	overflow: hidden;
+	align-self: flex-end;
+}
+
+#boton__plantarse:hover {
+	background-color: lightsalmon;
+}
+
+#game_over {
+	width: 100%;
+	height: 90%;
+	border: 1px solid black;
+	background: linear-gradient(seagreen, green);
+	font-size: 64px;
+	font-weight: bold;
+	text-shadow: 2px 2px 7px black;
+	color: orangered;
+	display: none;
+	grid-template-rows: repeat(2, 1fr);
+	align-items: flex-end;
+	justify-content: center;
+}
+
+#rejugar {
+	width: 90%;
+	height: fit-content;
+	font-size: 24px;
+	font-weight: 400;
+	align-self: center;
+	justify-self: center;
+	color: black;
+	border-radius: 6px;
+	background: linear-gradient(#BBB, #555);
+	box-shadow: inset -3px -2px 2px rgba(0, 0, 0, 0.7);
+	cursor: pointer;
+	padding: 3%;
+}
+
+#rejugar:active {
+	transform: translate(-3px, -4px);
+}
+
+/*---------------------------------------------------------
+RESPONSIVE
+---------------------------------------------------------*/
+/* @media (max-width: 799px) {
+} */
+
+@media (max-width: 599px) {
+	.carta {
+		width: 300%;
+	}
+
+	.botones__enJuego {
+		font-size: 10px;
+		padding: 6px 9px 6px 9px;
+	}
+
+	.score__board {
+		font-size: 10px;
+	}
+}
+
+/* @media (max-width: 424px) {
+}
+
+@media (max-width: 374px) {
+} */
