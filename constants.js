@@ -12,6 +12,7 @@ const objeto = {
     board: document.getElementById('game__board'),
     scoreBoardJugador: document.getElementsByClassName('score__board'),
     scoreBoardCPU: document.getElementsByClassName('score__board cpu'),
+    modalGanadorMano: document.getElementsByClassName('modalGanadorMano'),
     carta: null,
     arrayCartasDibujadas: [],
     sumaJugador: document.getElementById('suma__jugador'),

@@ -15,6 +15,9 @@ export class Carta {
         this.valorInt = valor_rnd + 1;  // Sumamos 1 al rnd (ahora rango: 1-13)
         console.log(this.valorInt);
 
+        this.imgCarta;
+        this.StringUrl;
+
         this.turno = this.averiguaTurno();
         this.dibuja_carta();
     }
@@ -23,7 +26,7 @@ export class Carta {
 
         const valorAJQKx = this.check_AJQK();
 
-        let StringUrl = 'card' + this.StringPalo.toString() + valorAJQKx + '.png';
+        this.StringUrl = 'card' + this.StringPalo.toString() + valorAJQKx + '.png';
 
         objeto.carta = document.createElement('span');
         objeto.carta.setAttribute('class', 'carta');
@@ -33,13 +36,14 @@ export class Carta {
             objeto.carta.style.backgroundImage = `url("./img/Cards/cardBack_blue3.png")`;
 
         } else {
-            objeto.carta.style.backgroundImage = `url("./img/Cards/${StringUrl}")`;
+            objeto.carta.style.backgroundImage = `url("./img/Cards/${this.StringUrl}")`;
         }
         
         let valorGrid = this.situarCarta_gridArea();
         objeto.carta.style.gridArea = valorGrid;
 
         objeto.board.appendChild(objeto.carta);
+        this.imgCarta = objeto.carta;
     }
 
     check_AJQK() {

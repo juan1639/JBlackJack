@@ -10,6 +10,7 @@ import {
 
 import { Carta } from './carta.js';
 import { Ficha } from './ficha.js';
+import { Mazo } from './mazo.js';
 
 // -----------------------------------------------------------------------------
 function sortear_carta() {
@@ -100,8 +101,43 @@ function instanciar_fichas() {
     }
 }
 
+function instanciar_mazo() {
+
+    const nro_cartas = 9;
+
+    for (let i = 0; i < nro_cartas; i ++) {
+
+        const nuevaCartaMazo = new Mazo(2, 2, i * 2);
+    }
+}
+
 // -----------------------------------------------------------------------------
 function sePlantaCPU_finMano() {
+
+    let StringUrl = objeto.arrayCartasDibujadas[0].StringUrl;
+
+    objeto.arrayCartasDibujadas[0].imgCarta.style.backgroundImage = `url("./img/Cards/${StringUrl}")`;
+
+    if (marcadores.sumaJugador > 21) {
+        objeto.modalGanadorMano[0].style.display = 'flex';
+        objeto.modalGanadorMano[0].innerHTML = 'Gana la CPU!';
+        objeto.modalGanadorMano[0].style.gridArea = '3/12';
+
+    } else if (marcadores.sumaCPU > 21) {
+        objeto.modalGanadorMano[0].style.display = 'flex';
+        objeto.modalGanadorMano[0].innerHTML = 'Gana Jugador!';
+        objeto.modalGanadorMano[0].style.gridArea = '1/12';
+
+    } else if (marcadores.sumaJugador > marcadores.sumaCPU) {
+        objeto.modalGanadorMano[0].style.display = 'flex';
+        objeto.modalGanadorMano[0].innerHTML = 'Gana Jugador!';
+        objeto.modalGanadorMano[0].style.gridArea = '1/12';
+
+    } else {
+        objeto.modalGanadorMano[0].style.display = 'flex';
+        objeto.modalGanadorMano[0].innerHTML = 'Gana la CPU!';
+        objeto.modalGanadorMano[0].style.gridArea = '3/12';
+    }
 
     console.log('fin mano');
 }
@@ -110,5 +146,6 @@ function sePlantaCPU_finMano() {
 export {
     sortear_carta,
     instanciar_carta,
-    instanciar_fichas
+    instanciar_fichas,
+    instanciar_mazo
 };

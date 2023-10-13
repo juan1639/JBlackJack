@@ -11,7 +11,8 @@ import {
 
 import { 
     sortear_carta,
-    instanciar_fichas
+    instanciar_fichas,
+    instanciar_mazo
 } from "./functions.js";
 
 // ---------------------------------------------------------------------
@@ -42,6 +43,7 @@ for (let tipoEvento of constantes.eventos) {
 // ---------------------------------------------------------------------
 window.onload = () => {
 
+    instanciar_mazo();
     instanciar_fichas();
     bucle_principal();
 }
