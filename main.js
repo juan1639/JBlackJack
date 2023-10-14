@@ -22,7 +22,7 @@ for (let tipoEvento of constantes.eventos) {
 
     document.addEventListener(tipoEvento, (ev) => {
 
-        if (estado.enJuego && marcadores.turno && !marcadores.plantarse) {
+        if (estado.enJuego && marcadores.turno && !marcadores.plantarse && tipoEvento === 'click') {
     
             if (ev.target.id === 'boton__pedirCarta') {
                 sortear_carta();

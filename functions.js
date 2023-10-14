@@ -90,17 +90,18 @@ function instanciar_fichas() {
 
     for (let i = 0; i < marcadores.fichasJugador; i ++) {
 
-        const nuevaFicha = new Ficha(1, i + 2);
+        const nuevaFicha = new Ficha(1, i + 2, 'normal');
         objeto.scoreBoardJugador[0].appendChild(nuevaFicha.elementoFicha);
     }
 
     for (let i = 0; i < marcadores.fichasCPU; i ++) {
 
-        const nuevaFicha = new Ficha(1, i + 2);
+        const nuevaFicha = new Ficha(1, i + 2, 'normal');
         objeto.scoreBoardCPU[0].appendChild(nuevaFicha.elementoFicha);
     }
 }
 
+// -----------------------------------------------------------------------------
 function instanciar_mazo() {
 
     const nro_cartas = 9;
@@ -118,26 +119,38 @@ function sePlantaCPU_finMano() {
 
     objeto.arrayCartasDibujadas[0].imgCarta.style.backgroundImage = `url("./img/Cards/${StringUrl}")`;
 
+    let animaFicha;
+
     if (marcadores.sumaJugador > 21) {
         objeto.modalGanadorMano[0].style.display = 'flex';
         objeto.modalGanadorMano[0].innerHTML = 'Gana la CPU!';
         objeto.modalGanadorMano[0].style.gridArea = '3/12';
+        animaFicha = 'moveUpDo';
 
     } else if (marcadores.sumaCPU > 21) {
         objeto.modalGanadorMano[0].style.display = 'flex';
         objeto.modalGanadorMano[0].innerHTML = 'Gana Jugador!';
         objeto.modalGanadorMano[0].style.gridArea = '1/12';
+        animaFicha = 'moveDoUp';
 
     } else if (marcadores.sumaJugador > marcadores.sumaCPU) {
         objeto.modalGanadorMano[0].style.display = 'flex';
         objeto.modalGanadorMano[0].innerHTML = 'Gana Jugador!';
         objeto.modalGanadorMano[0].style.gridArea = '1/12';
+        animaFicha = 'moveDoUp';
 
     } else {
         objeto.modalGanadorMano[0].style.display = 'flex';
         objeto.modalGanadorMano[0].innerHTML = 'Gana la CPU!';
         objeto.modalGanadorMano[0].style.gridArea = '3/12';
+        animaFicha = 'moveUpDo';
     }
+
+    const nuevaFicha = new Ficha(1, 5, animaFicha);
+    objeto.board.appendChild(nuevaFicha.elementoFicha);
+    setTimeout(() => {
+        objeto.board.removeChild(nuevaFicha.elementoFicha);
+    },900);
 
     console.log('fin mano');
 }
