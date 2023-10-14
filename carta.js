@@ -67,6 +67,7 @@ export class Carta {
     averiguaTurno() {
 
         marcadores.contadorGeneral ++;
+        console.log('c General:' + marcadores.contadorGeneral);
 
         if (marcadores.contadorGeneral < 3) {
             marcadores.turno = false;

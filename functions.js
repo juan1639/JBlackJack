@@ -19,7 +19,14 @@ function sortear_carta() {
 
         if (marcadores.sumaCPU > 15) {
             estado.finMano = true;
-            sePlantaCPU_finMano();
+            estado.enJuego = false;
+
+            setTimeout(() => {
+                objeto.cpuPensando[0].style.display = 'none';
+                objeto.botonOtraMano.style.display = 'flex';
+                sePlantaCPU_finMano();
+            }, 2000);
+
             return;
         }
     }
@@ -45,8 +52,16 @@ function sortear_carta() {
 
     console.log(palos);
 
-    instanciar_carta(keyPalo, valor_rnd);
-    mostrar_marcadores(valor_rnd);
+    if (!marcadores.turno && marcadores.plantarse) {
+        setTimeout(() => {
+            instanciar_carta(keyPalo, valor_rnd);
+            mostrar_marcadores(valor_rnd);
+        }, 1500);
+
+    } else {
+        instanciar_carta(keyPalo, valor_rnd);
+        mostrar_marcadores(valor_rnd);
+    }
 }
 
 // -----------------------------------------------------------------------------
@@ -90,13 +105,13 @@ function instanciar_fichas() {
 
     for (let i = 0; i < marcadores.fichasJugador; i ++) {
 
-        const nuevaFicha = new Ficha(1, i + 2, 'normal');
+        const nuevaFicha = new Ficha(1, i + 2, 'normal', 0);
         objeto.scoreBoardJugador[0].appendChild(nuevaFicha.elementoFicha);
     }
 
     for (let i = 0; i < marcadores.fichasCPU; i ++) {
 
-        const nuevaFicha = new Ficha(1, i + 2, 'normal');
+        const nuevaFicha = new Ficha(1, i + 2, 'normal', 0);
         objeto.scoreBoardCPU[0].appendChild(nuevaFicha.elementoFicha);
     }
 }
@@ -119,7 +134,9 @@ function sePlantaCPU_finMano() {
 
     objeto.arrayCartasDibujadas[0].imgCarta.style.backgroundImage = `url("./img/Cards/${StringUrl}")`;
 
+    let animaDuracion = 0.6;
     let animaFicha;
+    let posInicial;
 
     if (marcadores.sumaJugador > 21) {
         objeto.modalGanadorMano[0].style.display = 'flex';
@@ -146,11 +163,13 @@ function sePlantaCPU_finMano() {
         animaFicha = 'moveUpDo';
     }
 
-    const nuevaFicha = new Ficha(1, 5, animaFicha);
+    animaFicha === 'moveDoUp' ? posInicial = 3 : posInicial = 1;
+
+    const nuevaFicha = new Ficha(posInicial, 5, animaFicha, animaDuracion);
     objeto.board.appendChild(nuevaFicha.elementoFicha);
     setTimeout(() => {
         objeto.board.removeChild(nuevaFicha.elementoFicha);
-    },900);
+    }, animaDuracion * 1000);
 
     console.log('fin mano');
 }
