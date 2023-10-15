@@ -16,6 +16,8 @@ const objeto = {
     botonesEnjuego: document.getElementsByClassName('botones__enJuego'),
     cpuPensando: document.getElementsByClassName('cpu__pensando'),
     botonOtraMano: document.getElementById('boton__otraMano'),
+    gameOverMenu: document.getElementById('game_over'),
+    menuPrincipal: document.getElementById('menu__principal'),
     carta: null,
     arrayCartasDibujadas: [],
     sumaJugador: document.getElementById('suma__jugador'),
@@ -64,6 +66,9 @@ const sonido = {
     dieShuffle1: new Audio('./sonidos/dieShuffle1.ogg'),
     dieThrow1: new Audio('./sonidos/dieThrow1.ogg'),
     dieThrow2: new Audio('./sonidos/dieThrow2.ogg'),
+    plantarse: new Audio('./sonidos/puttergolf.mp3'),
+    ganarMano: new Audio('./sonidos/extralive.mp3'),
+    ganarTodasFichas: new Audio('./sonidos/aplausoseagle.mp3'),
 }
 
 // -----------------------------------------------------------------------------

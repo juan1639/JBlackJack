@@ -42,15 +42,14 @@ for (let tipoEvento of constantes.eventos) {
                 objeto.botonesEnjuego[1].style.display = 'none';
                 objeto.cpuPensando[0].style.display = 'flex';
                 objeto.cpuPensando[0].innerHTML = 'CPU Pensando...';
-                sonido.dieThrow1.play();
-                sonido.dieThrow2.play();
+                sonido.plantarse.play();
 
                 sortear_carta();
             }
         }
 
         if (estado.finMano && tipoEvento === 'click') {
-            if (ev.target.id === 'boton__otraMano') {
+            if (ev.target.id === 'boton__otraMano' && marcadores.fichasJugador > 0 && marcadores.fichasCPU > 0) {
 
                 console.log('borrando...');
                 sonido.dieShuffle1.play();
@@ -60,10 +59,37 @@ for (let tipoEvento of constantes.eventos) {
 
                 clearReset_board();
                 resetMarcadores();
-                clearReset_fichas();
-                instanciar_fichas();
+                //clearReset_fichas();
+                //instanciar_fichas();
                 bucle_principal();
+
+            } else if (ev.target.id === 'boton__otraMano' && marcadores.fichasJugador <= 0) {
+
+                //clearReset_fichas();
+                console.log('Pierdes!');
+
+                estado.game_over = true;
+
+                objeto.board.style.display = 'none';
+                objeto.scoreBoardCPU[0].style.display = 'none';
+                objeto.gameOverMenu.style.display = 'grid';
+
+            } else if (ev.target.id === 'boton__otraMano' && marcadores.fichasCPU <= 0) {
+
+                console.log('Ganas!');
+
+                estado.game_over = true;
+
+                objeto.board.style.display = 'none';
+                objeto.scoreBoardCPU[0].style.display = 'none';
+                objeto.menuPrincipal.style.display = 'grid';
+
             }
+        }
+
+        if (estado.game_over && ev.target.id === 'rejugar' && tipoEvento === 'click') {
+
+            console.log('menu principal');
         }
     });
 }

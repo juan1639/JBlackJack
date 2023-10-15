@@ -29,6 +29,19 @@ function sortear_carta() {
             }, 2000);
 
             return;
+
+        } else if (marcadores.sumaCPU < 16 && (marcadores.sumaJugador <= marcadores.sumaCPU)) {
+
+            estado.finMano = true;
+            estado.enJuego = false;
+
+            setTimeout(() => {
+                objeto.cpuPensando[0].style.display = 'none';
+                objeto.botonOtraMano.style.display = 'flex';
+                sePlantaCPU_finMano();
+            }, 2000);
+
+            return;
         }
     }
 
@@ -176,6 +189,11 @@ function sePlantaCPU_finMano() {
         marcadores.fichasJugador --;
         marcadores.fichasCPU ++;
 
+        setTimeout(() => {
+            sonido.dieThrow1.play();
+            sonido.dieThrow2.play();
+        }, 500);
+
     } else if (marcadores.sumaCPU > 21) {
         objeto.modalGanadorMano[0].style.display = 'flex';
         objeto.modalGanadorMano[0].innerHTML = 'Gana Jugador!';
@@ -183,6 +201,11 @@ function sePlantaCPU_finMano() {
         animaFicha = 'moveDoUp';
         marcadores.fichasJugador ++;
         marcadores.fichasCPU --;
+
+        setTimeout(() => {
+            sonido.ganarMano.play();
+            sonido.ganarMano.volume = 0.2;
+        }, 500);
 
 
     } else if (marcadores.sumaJugador > marcadores.sumaCPU) {
@@ -193,6 +216,11 @@ function sePlantaCPU_finMano() {
         marcadores.fichasJugador ++;
         marcadores.fichasCPU --;
 
+        setTimeout(() => {
+            sonido.ganarMano.play();
+            sonido.ganarMano.volume = 0.2;
+        }, 500);
+
     } else {
         objeto.modalGanadorMano[0].style.display = 'flex';
         objeto.modalGanadorMano[0].innerHTML = 'Gana la CPU!';
@@ -200,10 +228,18 @@ function sePlantaCPU_finMano() {
         animaFicha = 'moveUpDo';
         marcadores.fichasJugador --;
         marcadores.fichasCPU ++;
+
+        setTimeout(() => {
+            sonido.dieThrow1.play();
+            sonido.dieThrow2.play();
+        }, 500);
     }
 
     sonido.fichas1.play();
     sonido.fichas3.play();
+
+    clearReset_fichas();
+    instanciar_fichas();
 
     animaFicha === 'moveDoUp' ? posInicial = 3 : posInicial = 1;
 
