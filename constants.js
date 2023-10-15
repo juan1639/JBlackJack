@@ -4,8 +4,8 @@
 const constantes = {
     primeras4: 4,
     eventos: ['touchstart', 'click'],
-    fichasInicialesJugador: 5,
-    fichasInicialesCPU: 6,
+    fichasInicialesJugador: 3,
+    fichasInicialesCPU: 3,
 }
 
 const objeto = {
@@ -37,6 +37,7 @@ const marcadores = {
     contadorGeneral: 0,
     contadorJugador: 0,
     contadorCPU: 0,
+    contadorOcultas: 0,
     sumaJugador: 0,
     sumaCPU: 0,
     fichasJugador: constantes.fichasInicialesJugador,

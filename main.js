@@ -35,6 +35,7 @@ for (let tipoEvento of constantes.eventos) {
                 objeto.botonesEnjuego[0].style.display = 'none';
                 objeto.botonesEnjuego[1].style.display = 'none';
                 objeto.cpuPensando[0].style.display = 'flex';
+                objeto.cpuPensando[0].innerHTML = 'CPU Pensando...'
 
                 sortear_carta();
             }
@@ -44,12 +45,20 @@ for (let tipoEvento of constantes.eventos) {
             if (ev.target.id === 'boton__otraMano') {
                 estado.enJuego = true;
                 estado.finMano = false;
+                objeto.botonOtraMano.style.display = 'none';
 
                 for (let i = 0; i < marcadores.contadorGeneral; i ++) {
                     objeto.board.removeChild(objeto.board.lastChild);
                 }
 
-                objeto.modalGanadorMano[0].style.display = 'none';
+                while (objeto.arrayCartasDibujadas.length > 0) {
+                    objeto.arrayCartasDibujadas.shift();
+                }
+
+                if (objeto.modalGanadorMano[0]) {
+                    objeto.modalGanadorMano[0].style.display = 'none';
+                }
+
                 objeto.botonOtraMano.style.display = 'none';
                 objeto.botonesEnjuego[0].style.display = 'flex';
                 objeto.botonesEnjuego[1].style.display = 'flex';
@@ -61,8 +70,22 @@ for (let tipoEvento of constantes.eventos) {
                 marcadores.contadorCPU = 0;
                 marcadores.sumaJugador = 0;
                 marcadores.sumaCPU = 0;
-                
                 console.log('borrando...');
+
+                while (objeto.scoreBoardJugador[0].firstChild) {
+                    objeto.scoreBoardJugador[0].removeChild(objeto.scoreBoardJugador[0].firstChild);
+                }
+            
+                while (objeto.scoreBoardCPU[0].firstChild) {
+                    objeto.scoreBoardCPU[0].removeChild(objeto.scoreBoardCPU[0].firstChild);
+                }
+
+                objeto.scoreBoardJugador[0].appendChild(objeto.sumaJugador);
+                objeto.scoreBoardCPU[0].appendChild(objeto.sumaCPU);
+                objeto.sumaCPU.innerHTML = 'CPU suma:';
+
+                instanciar_fichas();
+                bucle_principal();
             }
         }
     });

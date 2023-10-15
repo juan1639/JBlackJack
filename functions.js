@@ -53,6 +53,7 @@ function sortear_carta() {
     console.log(palos);
 
     if (!marcadores.turno && marcadores.plantarse) {
+
         setTimeout(() => {
             instanciar_carta(keyPalo, valor_rnd);
             mostrar_marcadores(valor_rnd);
@@ -61,6 +62,17 @@ function sortear_carta() {
     } else {
         instanciar_carta(keyPalo, valor_rnd);
         mostrar_marcadores(valor_rnd);
+
+        const jugador_sePasa = check_siJugadorSePasa();
+
+        if (jugador_sePasa) {
+
+            setTimeout(() => {
+                objeto.cpuPensando[0].style.display = 'none';
+                objeto.botonOtraMano.style.display = 'flex';
+                sePlantaCPU_finMano();
+            }, 2000);
+        }
     }
 }
 
@@ -78,7 +90,7 @@ function mostrar_marcadores(valor_rnd) {
     
     if (marcadores.turno) {
         marcadores.sumaJugador += valor_carta;
-        objeto.sumaJugador.innerHTML = `Jugador suma: ${marcadores.sumaJugador}`;
+        objeto.sumaJugador.innerHTML = `Jug. suma: ${marcadores.sumaJugador}`;
         
     } else {
         marcadores.sumaCPU += valor_carta;
@@ -90,6 +102,23 @@ function mostrar_marcadores(valor_rnd) {
 
     // determinar SI es el turno de la CPU, para sortear otra carta o plantarse
     if (!marcadores.turno && marcadores.plantarse) sortear_carta();
+}
+
+// -----------------------------------------------------------------------------
+function check_siJugadorSePasa() {
+
+    if (marcadores.turno && marcadores.sumaJugador > 21) {
+        estado.finMano = true;
+        estado.enJuego = false;
+        objeto.botonesEnjuego[0].style.display = 'none';
+        objeto.botonesEnjuego[1].style.display = 'none';
+        objeto.cpuPensando[0].style.display = 'flex';
+        objeto.cpuPensando[0].innerHTML = 'Te Pasaste...';
+
+        return true;
+    }
+
+    return false;
 }
 
 // -----------------------------------------------------------------------------
@@ -130,7 +159,7 @@ function instanciar_mazo() {
 // -----------------------------------------------------------------------------
 function sePlantaCPU_finMano() {
 
-    let StringUrl = objeto.arrayCartasDibujadas[0].StringUrl;
+    const StringUrl = objeto.arrayCartasDibujadas[0].StringUrl;
 
     objeto.arrayCartasDibujadas[0].imgCarta.style.backgroundImage = `url("./img/Cards/${StringUrl}")`;
 
@@ -143,24 +172,33 @@ function sePlantaCPU_finMano() {
         objeto.modalGanadorMano[0].innerHTML = 'Gana la CPU!';
         objeto.modalGanadorMano[0].style.gridArea = '3/12';
         animaFicha = 'moveUpDo';
+        marcadores.fichasJugador --;
+        marcadores.fichasCPU ++;
 
     } else if (marcadores.sumaCPU > 21) {
         objeto.modalGanadorMano[0].style.display = 'flex';
         objeto.modalGanadorMano[0].innerHTML = 'Gana Jugador!';
         objeto.modalGanadorMano[0].style.gridArea = '1/12';
         animaFicha = 'moveDoUp';
+        marcadores.fichasJugador ++;
+        marcadores.fichasCPU --;
+
 
     } else if (marcadores.sumaJugador > marcadores.sumaCPU) {
         objeto.modalGanadorMano[0].style.display = 'flex';
         objeto.modalGanadorMano[0].innerHTML = 'Gana Jugador!';
         objeto.modalGanadorMano[0].style.gridArea = '1/12';
         animaFicha = 'moveDoUp';
+        marcadores.fichasJugador ++;
+        marcadores.fichasCPU --;
 
     } else {
         objeto.modalGanadorMano[0].style.display = 'flex';
         objeto.modalGanadorMano[0].innerHTML = 'Gana la CPU!';
         objeto.modalGanadorMano[0].style.gridArea = '3/12';
         animaFicha = 'moveUpDo';
+        marcadores.fichasJugador --;
+        marcadores.fichasCPU ++;
     }
 
     animaFicha === 'moveDoUp' ? posInicial = 3 : posInicial = 1;
