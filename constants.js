@@ -51,11 +51,27 @@ const estado = {
     game_over: false
 }
 
+const sonido = {
+    saleCarta1: new Audio('./sonidos/cardPlace1.ogg'),
+    saleCarta2: new Audio('./sonidos/cardPlace2.ogg'),
+    saleCarta3: new Audio('./sonidos/cardPlace3.ogg'),
+    slideCarta1: new Audio('./sonidos/cardSlide1.ogg'),
+    slideCarta2: new Audio('./sonidos/cardSlide2.ogg'),
+    slideCarta3: new Audio('./sonidos/cardSlide3.ogg'),
+    fichas1: new Audio('./sonidos/chipsCollide1.ogg'),
+    fichas2: new Audio('./sonidos/chipsCollide2.ogg'),
+    fichas3: new Audio('./sonidos/chipsCollide3.ogg'),
+    dieShuffle1: new Audio('./sonidos/dieShuffle1.ogg'),
+    dieThrow1: new Audio('./sonidos/dieThrow1.ogg'),
+    dieThrow2: new Audio('./sonidos/dieThrow2.ogg'),
+}
+
 // -----------------------------------------------------------------------------
 export {
     constantes,
     objeto,
     palos,
     marcadores,
-    estado
+    estado,
+    sonido
 };

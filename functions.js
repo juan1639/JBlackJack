@@ -5,7 +5,8 @@ import {
     palos, 
     objeto,
     marcadores,
-    estado
+    estado,
+    sonido
 } from './constants.js';
 
 import { Carta } from './carta.js';
@@ -201,6 +202,9 @@ function sePlantaCPU_finMano() {
         marcadores.fichasCPU ++;
     }
 
+    sonido.fichas1.play();
+    sonido.fichas3.play();
+
     animaFicha === 'moveDoUp' ? posInicial = 3 : posInicial = 1;
 
     const nuevaFicha = new Ficha(posInicial, 5, animaFicha, animaDuracion);
@@ -213,9 +217,62 @@ function sePlantaCPU_finMano() {
 }
 
 // -----------------------------------------------------------------------------
+function clearReset_board() {
+
+    objeto.botonOtraMano.style.display = 'none';
+
+    for (let i = 0; i < marcadores.contadorGeneral; i ++) {
+        objeto.board.removeChild(objeto.board.lastChild);
+    }
+
+    while (objeto.arrayCartasDibujadas.length > 0) {
+        objeto.arrayCartasDibujadas.shift();
+    }
+
+    if (objeto.modalGanadorMano[0]) {
+        objeto.modalGanadorMano[0].style.display = 'none';
+    }
+
+    objeto.botonOtraMano.style.display = 'none';
+    objeto.botonesEnjuego[0].style.display = 'flex';
+    objeto.botonesEnjuego[1].style.display = 'flex';    
+}
+
+// -----------------------------------------------------------------------------
+function resetMarcadores() {
+
+    marcadores.turno = false;
+    marcadores.plantarse = false;
+    marcadores.contadorGeneral = 0;
+    marcadores.contadorJugador = 0;
+    marcadores.contadorCPU = 0;
+    marcadores.sumaJugador = 0;
+    marcadores.sumaCPU = 0; 
+}
+
+// -----------------------------------------------------------------------------
+function clearReset_fichas() {
+
+    while (objeto.scoreBoardJugador[0].firstChild) {
+        objeto.scoreBoardJugador[0].removeChild(objeto.scoreBoardJugador[0].firstChild);
+    }
+
+    while (objeto.scoreBoardCPU[0].firstChild) {
+        objeto.scoreBoardCPU[0].removeChild(objeto.scoreBoardCPU[0].firstChild);
+    }
+
+    objeto.scoreBoardJugador[0].appendChild(objeto.sumaJugador);
+    objeto.scoreBoardCPU[0].appendChild(objeto.sumaCPU);
+    objeto.sumaCPU.innerHTML = 'CPU suma:';
+}
+
+// -----------------------------------------------------------------------------
 export {
     sortear_carta,
     instanciar_carta,
     instanciar_fichas,
-    instanciar_mazo
+    instanciar_mazo,
+    clearReset_board,
+    resetMarcadores,
+    clearReset_fichas
 };

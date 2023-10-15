@@ -1,7 +1,7 @@
 // ---------------------------------------------------------------------
 //  Class Carta
 // ---------------------------------------------------------------------
-import { objeto, marcadores } from './constants.js';
+import { objeto, marcadores, sonido } from './constants.js';
 
 // -----------------------------------------------------------------------------
 export class Carta {
@@ -20,6 +20,7 @@ export class Carta {
 
         this.turno = this.averiguaTurno();
         this.dibuja_carta();
+        this.sonido();
     }
 
     dibuja_carta() { 
@@ -102,5 +103,9 @@ export class Carta {
         }
 
         return stringNumeradorGrid + '/' + stringDenominadorGrid;
+    }
+
+    sonido() {
+        marcadores.turno ? sonido.saleCarta1.play() : sonido.saleCarta2.play();
     }
 }
