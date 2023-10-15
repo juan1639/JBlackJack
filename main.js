@@ -26,6 +26,26 @@ for (let tipoEvento of constantes.eventos) {
 
     document.addEventListener(tipoEvento, (ev) => {
 
+        if (estado.menu_principal && tipoEvento === 'click') {
+
+            if (ev.target.id === 'comenzar') {
+
+                sonido.plantarse.play();
+                estado.menu_principal = false;
+                estado.enJuego = true;
+
+                objeto.menuPrincipal.style.display = 'none';
+
+                objeto.board.style.display = 'grid';
+                objeto.scoreBoardCPU[0].style.display = 'grid';
+
+                sonido.dieShuffle1.play();
+                instanciar_mazo();
+                instanciar_fichas();
+                bucle_principal();
+            }
+        }
+
         if (estado.enJuego && marcadores.turno && !marcadores.plantarse && tipoEvento === 'click') {
     
             if (ev.target.id === 'boton__pedirCarta') {
@@ -99,12 +119,9 @@ for (let tipoEvento of constantes.eventos) {
 // ---------------------------------------------------------------------
 window.onload = () => {
 
+    objeto.board.style.display = 'none';
+    objeto.scoreBoardCPU[0].style.display = 'none';
     objeto.botonOtraMano.style.display = 'none';
-    sonido.dieShuffle1.play();
-
-    instanciar_mazo();
-    instanciar_fichas();
-    bucle_principal();
 }
 
 // ---------------------------------------------------------------------

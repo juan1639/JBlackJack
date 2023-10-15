@@ -47,8 +47,8 @@ const marcadores = {
 }
 
 const estado = {
-    menu_principal: false,
-    enJuego: true,
+    menu_principal: true,
+    enJuego: false,
     finMano: false,
     game_over: false
 }

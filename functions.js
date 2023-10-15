@@ -13,15 +13,15 @@ import { Carta } from './carta.js';
 import { Ficha } from './ficha.js';
 import { Mazo } from './mazo.js';
 
-// -----------------------------------------------------------------------------
+// =============================================================================
 function sortear_carta() {
-
+    
     if (!marcadores.turno && marcadores.plantarse) {
-
+        
         if (marcadores.sumaCPU > 15) {
             estado.finMano = true;
             estado.enJuego = false;
-
+            
             setTimeout(() => {
                 objeto.cpuPensando[0].style.display = 'none';
                 objeto.botonOtraMano.style.display = 'flex';
@@ -29,43 +29,49 @@ function sortear_carta() {
             }, 2000);
 
             return;
-
+            
         } else if (marcadores.sumaCPU < 16 && (marcadores.sumaJugador <= marcadores.sumaCPU)) {
-
+            
             estado.finMano = true;
             estado.enJuego = false;
-
+            
             setTimeout(() => {
                 objeto.cpuPensando[0].style.display = 'none';
                 objeto.botonOtraMano.style.display = 'flex';
                 sePlantaCPU_finMano();
             }, 2000);
-
+            
             return;
         }
     }
 
+    // ---------------------- Sorteo de Carta ---------------------------
     let palo_rnd;
     let valor_rnd;
     let keyPalo;
-
+    
     do {
         palo_rnd = Math.floor(Math.random() * 4);
-
         valor_rnd = Math.floor(Math.random() * 13);
-
-        console.log(palos);
-        console.log(Object.keys(palos)[palo_rnd]);
-
+        
+        //console.log(palos);
+        //console.log(Object.keys(palos)[palo_rnd]);
+        
         keyPalo = Object.keys(palos)[palo_rnd];
         //console.log(palos[keyPalo][valor_rnd]);
-
+        
     } while (palos[keyPalo][valor_rnd]);
 
+    // ------------------------------------------------------------------
+    //  Check SI se han acabado las cartas para 'cambiar' de baraja
+    // ------------------------------------------------------------------
     palos[keyPalo][valor_rnd] = true;   // Marca la carta para que No vuelva a salir
-
     console.log(palos);
+    
+    const cartasLibres = checkCartas_sinSalir();
+    if (!cartasLibres) cambiarRestear_baraja();
 
+    // ------------------------------------------------------------------
     if (!marcadores.turno && marcadores.plantarse) {
 
         setTimeout(() => {
@@ -80,7 +86,7 @@ function sortear_carta() {
         const jugador_sePasa = check_siJugadorSePasa();
 
         if (jugador_sePasa) {
-
+            
             setTimeout(() => {
                 objeto.cpuPensando[0].style.display = 'none';
                 objeto.botonOtraMano.style.display = 'flex';
@@ -90,16 +96,16 @@ function sortear_carta() {
     }
 }
 
-// -----------------------------------------------------------------------------
+// =============================================================================
 function instanciar_carta(keyPalo, valor_rnd) {
-
+    
     objeto.carta = new Carta(keyPalo, valor_rnd);
     objeto.arrayCartasDibujadas.push(objeto.carta);
 }
 
-// -----------------------------------------------------------------------------
+// =============================================================================
 function mostrar_marcadores(valor_rnd) {
-
+    
     const valor_carta = calcula_valorCarta(valor_rnd);
     
     if (marcadores.turno) {
@@ -113,14 +119,50 @@ function mostrar_marcadores(valor_rnd) {
             objeto.sumaCPU.innerHTML = `CPU suma: ${marcadores.sumaCPU}`;
         }
     }
-
+    
     // determinar SI es el turno de la CPU, para sortear otra carta o plantarse
     if (!marcadores.turno && marcadores.plantarse) sortear_carta();
 }
 
-// -----------------------------------------------------------------------------
-function check_siJugadorSePasa() {
+// =============================================================================
+function checkCartas_sinSalir() {
+    
+    const cuatro_palos = Object.keys(palos);
+    console.log(cuatro_palos, cuatro_palos.length);
+    
+    for (let palo = 0; palo < cuatro_palos.length; palo ++) {
+        
+        console.log(palo, cuatro_palos.length);
+        
+        let keyPalo = Object.values(palos)[palo];
+        console.log(keyPalo);
+        
+        let cartas_sinSalir = keyPalo.includes(false);
+        console.log(cartas_sinSalir);
+        
+        if (cartas_sinSalir) return true;
+    }
+    
+    return false;
+}
 
+// =============================================================================
+function cambiarRestear_baraja() {
+    
+    const cuatro_palos = Object.keys(palos);
+    
+    for (let palo = 0; palo < cuatro_palos.length; palo ++) {
+        
+        let keyPalo = Object.values(palos)[palo];
+        keyPalo.fill(false);
+    }
+    
+    console.log('resetBaraja:', palos);
+}
+
+// =============================================================================
+function check_siJugadorSePasa() {
+    
     if (marcadores.turno && marcadores.sumaJugador > 21) {
         estado.finMano = true;
         estado.enJuego = false;
@@ -135,7 +177,7 @@ function check_siJugadorSePasa() {
     return false;
 }
 
-// -----------------------------------------------------------------------------
+// =============================================================================
 function calcula_valorCarta(valor_rnd) {
 
     if (valor_rnd > 9) return 10;
@@ -143,7 +185,7 @@ function calcula_valorCarta(valor_rnd) {
     return valor_rnd + 1;
 }
 
-// -----------------------------------------------------------------------------
+// =============================================================================
 function instanciar_fichas() {
 
     for (let i = 0; i < marcadores.fichasJugador; i ++) {
@@ -159,7 +201,7 @@ function instanciar_fichas() {
     }
 }
 
-// -----------------------------------------------------------------------------
+// =============================================================================
 function instanciar_mazo() {
 
     const nro_cartas = 9;
@@ -170,7 +212,7 @@ function instanciar_mazo() {
     }
 }
 
-// -----------------------------------------------------------------------------
+// =============================================================================
 function sePlantaCPU_finMano() {
 
     const StringUrl = objeto.arrayCartasDibujadas[0].StringUrl;
@@ -252,7 +294,7 @@ function sePlantaCPU_finMano() {
     console.log('fin mano');
 }
 
-// -----------------------------------------------------------------------------
+// =============================================================================
 function clearReset_board() {
 
     objeto.botonOtraMano.style.display = 'none';
@@ -274,7 +316,7 @@ function clearReset_board() {
     objeto.botonesEnjuego[1].style.display = 'flex';    
 }
 
-// -----------------------------------------------------------------------------
+// =============================================================================
 function resetMarcadores() {
 
     marcadores.turno = false;
@@ -286,7 +328,7 @@ function resetMarcadores() {
     marcadores.sumaCPU = 0; 
 }
 
-// -----------------------------------------------------------------------------
+// =============================================================================
 function clearReset_fichas() {
 
     while (objeto.scoreBoardJugador[0].firstChild) {
