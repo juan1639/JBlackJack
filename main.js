@@ -7,7 +7,8 @@ import {
     marcadores,
     objeto,
     estado,
-    sonido
+    sonido,
+    varias
 } from "./constants.js";
 
 import { 
@@ -19,6 +20,7 @@ import {
     clearReset_fichas
 } from "./functions.js";
 
+let eventoSel;
 // ---------------------------------------------------------------------
 //  Eventos Raton, Touch, Key
 // ---------------------------------------------------------------------
@@ -26,7 +28,7 @@ for (let tipoEvento of constantes.eventos) {
 
     document.addEventListener(tipoEvento, (ev) => {
 
-        if (estado.menu_principal && tipoEvento === 'click') {
+        if (estado.menu_principal && tipoEvento === eventoSel) {
 
             if (ev.target.id === 'comenzar') {
 
@@ -43,10 +45,28 @@ for (let tipoEvento of constantes.eventos) {
                 instanciar_mazo();
                 instanciar_fichas();
                 bucle_principal();
+
+            } else if (ev.target.id === 'config__controles' && !varias.bandera) {
+
+                console.log('config controles');
+                sonido.plantarse.play();
+                varias.bandera = true;
+                eventoSel === constantes.eventos[0] ? eventoSel = constantes.eventos[1] : eventoSel = constantes.eventos[0];
+                objeto.modalCambiaControles[0].style.display = 'grid';
+
+                let txt;
+                eventoSel === constantes.eventos[0] ? txt = 'touch (Móvil)' : txt = 'Ratón';
+                objeto.modalCambiaControles[0].innerHTML = 'Controles cambiados a ' + txt;
+                
+                setTimeout(() => {
+                    objeto.modalCambiaControles[0].style.display = 'none';
+                    varias.bandera = false;
+                    console.log(varias.bandera, eventoSel);
+                }, 2500);
             }
         }
 
-        if (estado.enJuego && marcadores.turno && !marcadores.plantarse && tipoEvento === 'click') {
+        if (estado.enJuego && marcadores.turno && !marcadores.plantarse && tipoEvento === eventoSel) {
     
             if (ev.target.id === 'boton__pedirCarta') {
 
@@ -68,7 +88,7 @@ for (let tipoEvento of constantes.eventos) {
             }
         }
 
-        if (estado.finMano && tipoEvento === 'click') {
+        if (estado.finMano && tipoEvento === eventoSel) {
             if (ev.target.id === 'boton__otraMano' && marcadores.fichasJugador > 0 && marcadores.fichasCPU > 0) {
 
                 console.log('borrando...');
@@ -107,7 +127,7 @@ for (let tipoEvento of constantes.eventos) {
             }
         }
 
-        if (estado.game_over && ev.target.id === 'rejugar' && tipoEvento === 'click') {
+        if (estado.game_over && ev.target.id === 'rejugar' && tipoEvento === eventoSel) {
 
             console.log('menu principal');
         }
@@ -118,6 +138,9 @@ for (let tipoEvento of constantes.eventos) {
 //  funcion INICIALIZADORA
 // ---------------------------------------------------------------------
 window.onload = () => {
+
+    eventoSel = constantes.eventos[1];
+    console.log(eventoSel);
 
     objeto.board.style.display = 'none';
     objeto.scoreBoardCPU[0].style.display = 'none';

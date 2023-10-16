@@ -4,8 +4,8 @@
 const constantes = {
     primeras4: 4,
     eventos: ['touchstart', 'click'],
-    fichasInicialesJugador: 3,
-    fichasInicialesCPU: 3,
+    fichasInicialesJugador: 10,
+    fichasInicialesCPU: 10,
 }
 
 const objeto = {
@@ -13,6 +13,7 @@ const objeto = {
     scoreBoardJugador: document.getElementsByClassName('score__board'),
     scoreBoardCPU: document.getElementsByClassName('score__board cpu'),
     modalGanadorMano: document.getElementsByClassName('modalGanadorMano'),
+    modalCambiaControles: document.getElementsByClassName('modal__cambiaControles'),
     botonesEnjuego: document.getElementsByClassName('botones__enJuego'),
     cpuPensando: document.getElementsByClassName('cpu__pensando'),
     botonOtraMano: document.getElementById('boton__otraMano'),
@@ -53,6 +54,10 @@ const estado = {
     game_over: false
 }
 
+const varias = {
+    bandera: false,
+}
+
 const sonido = {
     saleCarta1: new Audio('./sonidos/cardPlace1.ogg'),
     saleCarta2: new Audio('./sonidos/cardPlace2.ogg'),
@@ -78,5 +83,6 @@ export {
     palos,
     marcadores,
     estado,
-    sonido
+    sonido,
+    varias
 };
