@@ -35,6 +35,8 @@ for (let tipoEvento of constantes.eventos) {
                 sonido.plantarse.play();
                 estado.menu_principal = false;
                 estado.enJuego = true;
+                marcadores.fichasJugador = constantes.fichasInicialesJugador;
+                marcadores.fichasCPU = constantes.fichasInicialesCPU;
 
                 objeto.menuPrincipal.style.display = 'none';
 
@@ -107,8 +109,16 @@ for (let tipoEvento of constantes.eventos) {
 
                 //clearReset_fichas();
                 console.log('Pierdes!');
+                sonido.dieThrow1.play();
+                sonido.dieThrow2.play();
+                sonido.gameOverVoz.play();
 
                 estado.game_over = true;
+                estado.finMano = false;
+
+                clearReset_board();
+                resetMarcadores();
+                clearReset_fichas();
 
                 objeto.board.style.display = 'none';
                 objeto.scoreBoardCPU[0].style.display = 'none';
@@ -117,19 +127,31 @@ for (let tipoEvento of constantes.eventos) {
             } else if (ev.target.id === 'boton__otraMano' && marcadores.fichasCPU <= 0) {
 
                 console.log('Ganas!');
+                sonido.ganarTodasFichas.play();
 
-                estado.game_over = true;
+                estado.menu_principal = true;
+                estado.finMano = false;
+
+                clearReset_board();
+                resetMarcadores();
+                clearReset_fichas();
 
                 objeto.board.style.display = 'none';
                 objeto.scoreBoardCPU[0].style.display = 'none';
                 objeto.menuPrincipal.style.display = 'grid';
-
             }
         }
 
         if (estado.game_over && ev.target.id === 'rejugar' && tipoEvento === eventoSel) {
 
             console.log('menu principal');
+            sonido.plantarse.play();
+
+            estado.game_over = false;
+            estado.menu_principal = true;
+
+            objeto.gameOverMenu.style.display = 'none';
+            objeto.menuPrincipal.style.display = 'grid';
         }
     });
 }

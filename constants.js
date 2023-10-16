@@ -74,6 +74,7 @@ const sonido = {
     plantarse: new Audio('./sonidos/puttergolf.mp3'),
     ganarMano: new Audio('./sonidos/extralive.mp3'),
     ganarTodasFichas: new Audio('./sonidos/aplausoseagle.mp3'),
+    gameOverVoz: new Audio('./sonidos/gameover.mp3'),
 }
 
 // -----------------------------------------------------------------------------

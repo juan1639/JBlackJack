@@ -28,6 +28,7 @@
 .boton__menu {
 	width: 90%;
 	height: fit-content;
+	padding: 6% 2% 6% 2%;
 	font-size: 24px;
 	font-weight: 400;
 	align-self: center;
@@ -37,7 +38,6 @@
 	background: linear-gradient(#BBB, #555);
 	box-shadow: inset -2px -1px 2px rgba(0, 0, 0, 0.7);
 	cursor: pointer;
-	padding: 3%;
 }
 
 .boton__menu:active {
@@ -49,6 +49,7 @@
 }
 
 #comenzar {
+	padding: 5% 2% 5% 2%;
 	font-size: 28px;
 	font-weight: bold;
 	grid-area: 3/2;
@@ -67,6 +68,10 @@ a {
 #records {
 	grid-area: 1/1;
 	align-self: flex-start;
+}
+
+#rejugar {
+	font-weight: bold;
 }
 
 #menu__principal {
@@ -110,12 +115,20 @@ a {
 	transform: rotate(-7deg);
 }
 
+#assets__txt {
+	font-size: 26px;
+	text-shadow: 1px 1px 1px black;
+	grid-area: 3/2;
+	align-self: flex-end;
+	justify-self: right;
+}
+
 #assets__kenney {
-	font-size: 20px;
+	font-size: 24px;
 	text-shadow: 1px 1px 1px black;
 	grid-area: 3/3;
-	align-self: center;
-	justify-self: center;
+	align-self: flex-end;
+	justify-self: left;
 }
 
 .modal__cambiaControles {
