@@ -17,7 +17,8 @@ import {
     instanciar_mazo,
     clearReset_board,
     resetMarcadores,
-    clearReset_fichas
+    clearReset_fichas,
+    fetching_records
 } from "./functions.js";
 
 let eventoSel;
@@ -65,6 +66,17 @@ for (let tipoEvento of constantes.eventos) {
                     varias.bandera = false;
                     console.log(varias.bandera, eventoSel);
                 }, 2500);
+
+            } else if (ev.target.id === 'records') {
+
+                sonido.plantarse.play();
+                fetching_records();
+                objeto.contenedorRecords[0].style.display = 'grid';
+
+            } else if (ev.target.id === 'records__volver') {
+
+                sonido.plantarse.play();
+                objeto.contenedorRecords[0].style.display = 'none';
             }
         }
 
@@ -167,6 +179,7 @@ window.onload = () => {
     objeto.board.style.display = 'none';
     objeto.scoreBoardCPU[0].style.display = 'none';
     objeto.botonOtraMano.style.display = 'none';
+    objeto.contenedorRecords[0].style.display = 'none';
 }
 
 // ---------------------------------------------------------------------

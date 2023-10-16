@@ -6,6 +6,7 @@ const constantes = {
     eventos: ['touchstart', 'click'],
     fichasInicialesJugador: 10,
     fichasInicialesCPU: 10,
+    endPoint: './mejoresResultados.json',
 }
 
 const objeto = {
@@ -19,6 +20,7 @@ const objeto = {
     botonOtraMano: document.getElementById('boton__otraMano'),
     gameOverMenu: document.getElementById('game_over'),
     menuPrincipal: document.getElementById('menu__principal'),
+    contenedorRecords: document.getElementsByClassName('contenedor__records'),
     carta: null,
     arrayCartasDibujadas: [],
     sumaJugador: document.getElementById('suma__jugador'),

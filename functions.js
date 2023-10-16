@@ -6,7 +6,8 @@ import {
     objeto,
     marcadores,
     estado,
-    sonido
+    sonido,
+    constantes
 } from './constants.js';
 
 import { Carta } from './carta.js';
@@ -344,6 +345,56 @@ function clearReset_fichas() {
     objeto.sumaCPU.innerHTML = 'CPU suma:';
 }
 
+// =============================================================================
+async function fetching_records() {
+
+    const endpoint = constantes.endPoint;
+
+    try {
+        const response = await fetch(endpoint);
+        console.log(response);
+
+        if(response.ok){
+            const jsonResponse = await response.json();
+            console.log(jsonResponse);
+
+            //funcion para mostrar la informacion
+            mostrar_records(jsonResponse);
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// =============================================================================
+function mostrar_records(jsonResponse) {
+
+    console.log(jsonResponse);
+
+    for (let i = 0; i < jsonResponse.jugadores.length; i ++) {
+
+        const indice = i + 1;
+        const nombre = jsonResponse.jugadores[i]['nombre'];
+        const ganadas = jsonResponse.jugadores[i]['ganadas'];
+        const nroManos = jsonResponse.jugadores[i]['nroManos'];
+
+        creaElementoDom(indice.toString() + '.', 'right');
+        creaElementoDom(nombre.toString(), 'center');
+        creaElementoDom(ganadas.toString(), 'right');
+        creaElementoDom(nroManos.toString(), 'right');
+    }
+}
+
+// =============================================================================
+function creaElementoDom(txt, justificar) {
+
+    const elemento = document.createElement('p');
+    elemento.style.justifySelf = justificar;
+    elemento.innerHTML = txt;
+    objeto.contenedorRecords[0].appendChild(elemento);
+}
+
 // -----------------------------------------------------------------------------
 export {
     sortear_carta,
@@ -352,5 +403,6 @@ export {
     instanciar_mazo,
     clearReset_board,
     resetMarcadores,
-    clearReset_fichas
+    clearReset_fichas,
+    fetching_records
 };

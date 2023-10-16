@@ -1,5 +1,6 @@
 @import './anima.css';
 @import './menupp.css';
+@import './mejoresRes.css';
 
 * {
 	box-sizing: border-box;
@@ -328,6 +329,18 @@ RESPONSIVE
 
 	.modal__cambiaControles {
 		font-size: 10px;
+	}
+
+	.contenedor__records {
+		width: 85%;
+		height: 100%;
+		font-size: 12px;
+		justify-self: center;
+	}
+	
+	#records__volver {
+		font-size: 12px;
+		padding: 1% 3% 1% 3%;
 	}
 }
 

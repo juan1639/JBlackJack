@@ -1,0 +1,14 @@
+{
+  "jugadores": [
+    {
+      "nombre": "CentroIMI",
+      "ganadas": 1,
+      "nroManos": 99
+    },
+    {
+      "nombre": "Suartxe",
+      "ganadas": 1,
+      "nroManos": 87
+    }
+  ]
+}
