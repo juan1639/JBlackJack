@@ -20,19 +20,37 @@ function sortear_carta() {
     if (!marcadores.turno && marcadores.plantarse) {
         
         if (marcadores.sumaCPU > 15 && marcadores.sumaJugador <= marcadores.sumaCPU) {
-            estado.finMano = true;
-            estado.enJuego = false;
-            
-            setTimeout(() => {
-                objeto.cpuPensando[0].style.display = 'none';
-                objeto.botonOtraMano.style.display = 'flex';
-                sePlantaCPU_finMano();
-            }, 2000);
 
-            return;
-            
+            if (marcadores.sumaCPU > 21) {
+                const cpu_sepasa = check_valorAs11();
+
+                if (cpu_sepasa) {
+                    estado.finMano = true;
+                    estado.enJuego = false;
+                    
+                    setTimeout(() => {
+                        objeto.cpuPensando[0].style.display = 'none';
+                        objeto.botonOtraMano.style.display = 'flex';
+                        sePlantaCPU_finMano();
+                    }, 2000);
+
+                    return;
+                }
+
+            } else {
+                estado.finMano = true;
+                estado.enJuego = false;
+                
+                setTimeout(() => {
+                    objeto.cpuPensando[0].style.display = 'none';
+                    objeto.botonOtraMano.style.display = 'flex';
+                    sePlantaCPU_finMano();
+                }, 2000);
+
+                return;
+            }
+
         } else if (marcadores.sumaCPU < 16 && (marcadores.sumaJugador <= marcadores.sumaCPU)) {
-            
             estado.finMano = true;
             estado.enJuego = false;
             
@@ -111,13 +129,13 @@ function mostrar_marcadores(valor_rnd) {
     
     if (marcadores.turno) {
         marcadores.sumaJugador += valor_carta;
-        objeto.sumaJugador.innerHTML = `Jug. suma: ${marcadores.sumaJugador}`;
+        objeto.sumaJugador.innerHTML = `Jug: ${marcadores.sumaJugador}`;
         
     } else {
         marcadores.sumaCPU += valor_carta;
 
         if (marcadores.plantarse) {
-            objeto.sumaCPU.innerHTML = `CPU suma: ${marcadores.sumaCPU}`;
+            objeto.sumaCPU.innerHTML = `CPU: ${marcadores.sumaCPU}`;
         }
     }
     
@@ -165,14 +183,19 @@ function cambiarRestear_baraja() {
 function check_siJugadorSePasa() {
     
     if (marcadores.turno && marcadores.sumaJugador > 21) {
-        estado.finMano = true;
-        estado.enJuego = false;
-        objeto.botonesEnjuego[0].style.display = 'none';
-        objeto.botonesEnjuego[1].style.display = 'none';
-        objeto.cpuPensando[0].style.display = 'flex';
-        objeto.cpuPensando[0].innerHTML = 'Te Pasaste...';
 
-        return true;
+        const check_ases11 = check_valorAs11();
+
+        if (check_ases11) {
+            estado.finMano = true;
+            estado.enJuego = false;
+            objeto.botonesEnjuego[0].style.display = 'none';
+            objeto.botonesEnjuego[1].style.display = 'none';
+            objeto.cpuPensando[0].style.display = 'flex';
+            objeto.cpuPensando[0].innerHTML = 'Te Pasaste...';
+            
+            return true;
+        }
     }
 
     return false;
@@ -182,8 +205,37 @@ function check_siJugadorSePasa() {
 function calcula_valorCarta(valor_rnd) {
 
     if (valor_rnd > 9) return 10;
+    if (valor_rnd > 0) return valor_rnd + 1;
 
-    return valor_rnd + 1;
+    // Llegados hasta aqui... es un A (valor 11 por defecto) -----
+    if (marcadores.turno) {
+        marcadores.cuantosAsesJugador ++;
+    } else {
+        marcadores.cuantosAsesCPU ++;
+    }
+
+    return 11;
+}
+
+// =============================================================================
+function check_valorAs11() {
+
+    if (marcadores.turno) {
+
+        if (marcadores.cuantosAsesJugador <= 0) return true; // Nos hemos PASADO SIN Ases...
+
+        marcadores.sumaJugador -= 10;
+        marcadores.cuantosAsesJugador --;
+
+    } else {
+
+        if (marcadores.cuantosAsesCPU <= 0) return true; // Nos hemos PASADO SIN Ases...
+
+        marcadores.sumaCPU -= 10;
+        marcadores.cuantosAsesCPU --;
+    }
+
+    return false;
 }
 
 // =============================================================================
@@ -327,6 +379,8 @@ function resetMarcadores() {
     marcadores.contadorCPU = 0;
     marcadores.sumaJugador = 0;
     marcadores.sumaCPU = 0; 
+    marcadores.cuantosAsesJugador = 0;
+    marcadores.cuantosAsesCPU = 0;
 }
 
 // =============================================================================

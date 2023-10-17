@@ -46,6 +46,8 @@ const marcadores = {
     contadorOcultas: 0,
     sumaJugador: 0,
     sumaCPU: 0,
+    cuantosAsesJugador: 0,
+    cuantosAsesCPU: 0,
     fichasJugador: constantes.fichasInicialesJugador,
     fichasCPU: constantes.fichasInicialesCPU,
 }
