@@ -3,12 +3,47 @@
     {
       "nombre": "CentroIMI",
       "ganadas": 1,
-      "nroManos": 99
+      "nroManos": 85
     },
     {
       "nombre": "Suartxe",
       "ganadas": 1,
       "nroManos": 87
+    },
+    {
+      "nombre": "Jon",
+      "ganadas": 1,
+      "nroManos": 89
+    },
+    {
+      "nombre": "Jon",
+      "ganadas": 1,
+      "nroManos": 90
+    },
+    {
+      "nombre": "Cafeteria Arlekin",
+      "ganadas": 1,
+      "nroManos": 91
+    },
+    {
+      "nombre": "Salon Piscis",
+      "ganadas": 1,
+      "nroManos": 94
+    },
+    {
+      "nombre": "Centro IMI",
+      "ganadas": 1,
+      "nroManos": 96
+    },
+    {
+      "nombre": "Arnold Suartxetxeifus",
+      "ganadas": 1,
+      "nroManos": 97
+    },
+    {
+      "nombre": "Bar Oker",
+      "ganadas": 1,
+      "nroManos": 99
     }
   ]
 }

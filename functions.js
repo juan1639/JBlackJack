@@ -19,7 +19,7 @@ function sortear_carta() {
     
     if (!marcadores.turno && marcadores.plantarse) {
         
-        if (marcadores.sumaCPU > 15) {
+        if (marcadores.sumaCPU > 15 && marcadores.sumaJugador <= marcadores.sumaCPU) {
             estado.finMano = true;
             estado.enJuego = false;
             
@@ -332,13 +332,8 @@ function resetMarcadores() {
 // =============================================================================
 function clearReset_fichas() {
 
-    while (objeto.scoreBoardJugador[0].firstChild) {
-        objeto.scoreBoardJugador[0].removeChild(objeto.scoreBoardJugador[0].firstChild);
-    }
-
-    while (objeto.scoreBoardCPU[0].firstChild) {
-        objeto.scoreBoardCPU[0].removeChild(objeto.scoreBoardCPU[0].firstChild);
-    }
+    borrarTodosChild(objeto.scoreBoardJugador[0]);
+    borrarTodosChild(objeto.scoreBoardCPU[0]);
 
     objeto.scoreBoardJugador[0].appendChild(objeto.sumaJugador);
     objeto.scoreBoardCPU[0].appendChild(objeto.sumaCPU);
@@ -357,6 +352,8 @@ async function fetching_records() {
         if(response.ok){
             const jsonResponse = await response.json();
             console.log(jsonResponse);
+
+            constantes.listaRecords = jsonResponse;
 
             //funcion para mostrar la informacion
             mostrar_records(jsonResponse);
@@ -379,8 +376,8 @@ function mostrar_records(jsonResponse) {
         const ganadas = jsonResponse.jugadores[i]['ganadas'];
         const nroManos = jsonResponse.jugadores[i]['nroManos'];
 
-        creaElementoDom(indice.toString() + '.', 'right');
-        creaElementoDom(nombre.toString(), 'center');
+        creaElementoDom(indice.toString() + '.', 'center');
+        creaElementoDom(nombre.toString(), 'left');
         creaElementoDom(ganadas.toString(), 'right');
         creaElementoDom(nroManos.toString(), 'right');
     }
@@ -388,11 +385,19 @@ function mostrar_records(jsonResponse) {
 
 // =============================================================================
 function creaElementoDom(txt, justificar) {
-
+    
     const elemento = document.createElement('p');
     elemento.style.justifySelf = justificar;
     elemento.innerHTML = txt;
     objeto.contenedorRecords[0].appendChild(elemento);
+}
+
+// =============================================================================
+function borrarTodosChild(contenedorPadre) {
+
+    while (contenedorPadre.firstChild) {
+        contenedorPadre.removeChild(contenedorPadre.firstChild);
+    }
 }
 
 // -----------------------------------------------------------------------------
@@ -404,5 +409,7 @@ export {
     clearReset_board,
     resetMarcadores,
     clearReset_fichas,
-    fetching_records
+    fetching_records,
+    mostrar_records,
+    borrarTodosChild
 };

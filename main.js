@@ -18,7 +18,7 @@ import {
     clearReset_board,
     resetMarcadores,
     clearReset_fichas,
-    fetching_records
+    fetching_records,
 } from "./functions.js";
 
 let eventoSel;
@@ -70,7 +70,6 @@ for (let tipoEvento of constantes.eventos) {
             } else if (ev.target.id === 'records') {
 
                 sonido.plantarse.play();
-                fetching_records();
                 objeto.contenedorRecords[0].style.display = 'grid';
 
             } else if (ev.target.id === 'records__volver') {
@@ -172,6 +171,8 @@ for (let tipoEvento of constantes.eventos) {
 //  funcion INICIALIZADORA
 // ---------------------------------------------------------------------
 window.onload = () => {
+
+    fetching_records();
 
     eventoSel = constantes.eventos[1];
     console.log(eventoSel);

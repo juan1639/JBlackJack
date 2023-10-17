@@ -7,6 +7,7 @@ const constantes = {
     fichasInicialesJugador: 10,
     fichasInicialesCPU: 10,
     endPoint: './mejoresResultados.json',
+    listaRecords: null,
 }
 
 const objeto = {
