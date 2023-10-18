@@ -278,6 +278,7 @@ function sePlantaCPU_finMano() {
     let animaDuracion = 0.6;
     let animaFicha;
     let posInicial;
+    let empate = false;
 
     if (marcadores.sumaJugador > 21) {
         objeto.modalGanadorMano[0].style.display = 'flex';
@@ -319,6 +320,12 @@ function sePlantaCPU_finMano() {
             sonido.ganarMano.volume = 0.2;
         }, 500);
 
+    } else if (marcadores.sumaJugador === 21 && marcadores.sumaCPU === 21 && marcadores.contadorJugador === 2 && marcadores.contadorCPU === 2) {
+        objeto.modalGanadorMano[0].style.display = 'flex';
+        objeto.modalGanadorMano[0].innerHTML = 'Empate';
+        objeto.modalGanadorMano[0].gridArea = '1/12';
+        empate = true;
+
     } else {
         objeto.modalGanadorMano[0].style.display = 'flex';
         objeto.modalGanadorMano[0].innerHTML = 'Gana la CPU!';
@@ -341,11 +348,14 @@ function sePlantaCPU_finMano() {
 
     animaFicha === 'moveDoUp' ? posInicial = 3 : posInicial = 1;
 
-    const nuevaFicha = new Ficha(posInicial, 5, animaFicha, animaDuracion);
-    objeto.board.appendChild(nuevaFicha.elementoFicha);
-    setTimeout(() => {
-        objeto.board.removeChild(nuevaFicha.elementoFicha);
-    }, animaDuracion * 1000);
+    if (!empate) {
+        const nuevaFicha = new Ficha(posInicial, 5, animaFicha, animaDuracion);
+        objeto.board.appendChild(nuevaFicha.elementoFicha);
+
+        setTimeout(() => {
+            objeto.board.removeChild(nuevaFicha.elementoFicha);
+        }, animaDuracion * 1000);
+    }
 
     console.log('fin mano');
 }

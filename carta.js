@@ -82,6 +82,7 @@ export class Carta {
         }
 
         marcadores.turno ? marcadores.contadorJugador ++ : marcadores.contadorCPU ++;
+        console.log('cont:', marcadores.contadorJugador, marcadores.contadorCPU);
         return marcadores.turno;
     }
 
