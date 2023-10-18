@@ -19,6 +19,7 @@ import {
     resetMarcadores,
     clearReset_fichas,
     fetching_records,
+    check_entrarEnMejores10
 } from "./functions.js";
 
 let eventoSel;
@@ -146,6 +147,8 @@ for (let tipoEvento of constantes.eventos) {
                 clearReset_board();
                 resetMarcadores();
                 clearReset_fichas();
+
+                check_entrarEnMejores10();
 
                 objeto.board.style.display = 'none';
                 objeto.scoreBoardCPU[0].style.display = 'none';

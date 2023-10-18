@@ -4,8 +4,8 @@
 const constantes = {
     primeras4: 4,
     eventos: ['touchstart', 'click'],
-    fichasInicialesJugador: 10,
-    fichasInicialesCPU: 10,
+    fichasInicialesJugador: 9,
+    fichasInicialesCPU: 7,
     endPoint: './mejoresResultados.json',
     listaRecords: null,
 }
@@ -44,6 +44,7 @@ const marcadores = {
     contadorJugador: 0,
     contadorCPU: 0,
     contadorOcultas: 0,
+    contadorManos: 0,
     sumaJugador: 0,
     sumaCPU: 0,
     cuantosAsesJugador: 0,

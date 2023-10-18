@@ -129,13 +129,16 @@ function mostrar_marcadores(valor_rnd) {
     
     if (marcadores.turno) {
         marcadores.sumaJugador += valor_carta;
-        objeto.sumaJugador.innerHTML = `Jug: ${marcadores.sumaJugador}`;
+        // objeto.sumaJugador.innerHTML = `Jug: ${marcadores.sumaJugador}`;
+        objeto.sumaJugador.innerHTML = 'Jugador';
         
     } else {
         marcadores.sumaCPU += valor_carta;
+        objeto.sumaCPU.innerHTML = 'C P U';
 
         if (marcadores.plantarse) {
-            objeto.sumaCPU.innerHTML = `CPU: ${marcadores.sumaCPU}`;
+            // objeto.sumaCPU.innerHTML = `CPU: ${marcadores.sumaCPU}`;
+            objeto.sumaCPU.innerHTML = 'C P U';
         }
     }
     
@@ -377,6 +380,7 @@ function resetMarcadores() {
     marcadores.contadorGeneral = 0;
     marcadores.contadorJugador = 0;
     marcadores.contadorCPU = 0;
+    marcadores.contadorManos ++;
     marcadores.sumaJugador = 0;
     marcadores.sumaCPU = 0; 
     marcadores.cuantosAsesJugador = 0;
@@ -407,10 +411,15 @@ async function fetching_records() {
             const jsonResponse = await response.json();
             console.log(jsonResponse);
 
+            // Ordenar los records...
+            const tabla = jsonResponse.jugadores.sort((a, b) => a.nroManos > b.nroManos ? 1 : -1);
+            console.log(tabla);
+
             constantes.listaRecords = jsonResponse;
 
-            //funcion para mostrar la informacion
-            mostrar_records(jsonResponse);
+            //funcion para mostrar la informacion de la lista de records
+            mostrar_records(constantes.listaRecords);
+            //mostrar_records(jsonResponse);
         }
 
     } catch (error) {
@@ -448,10 +457,62 @@ function creaElementoDom(txt, justificar) {
 
 // =============================================================================
 function borrarTodosChild(contenedorPadre) {
-
+    
     while (contenedorPadre.firstChild) {
         contenedorPadre.removeChild(contenedorPadre.firstChild);
     }
+}
+
+// =============================================================================
+function borrarLastChild(contenedorPadre) {
+    
+    contenedorPadre.removeChild(contenedorPadre.lastChild);
+}
+
+// =============================================================================
+function check_entrarEnMejores10() {
+
+    const endpoint = constantes.endPoint;
+    
+    const agregaScore = {
+        nombre: "Jugador",
+        ganadas: 1,
+        nroManos: marcadores.contadorManos
+    }
+
+    constantes.listaRecords.jugadores.push(agregaScore);
+    console.log(constantes.listaRecords);
+
+    const tabla = constantes.listaRecords.jugadores.sort((a, b) => a.nroManos > b.nroManos ? 1 : -1);
+    console.log(tabla);
+
+    constantes.listaRecords.jugadores.pop();
+    console.log(constantes.listaRecords);
+
+    const todos_menosBotonVolver = 36;
+
+    for (let i = 0; i < todos_menosBotonVolver; i ++) {
+        borrarLastChild(objeto.contenedorRecords[0]);
+    }
+
+    mostrar_records(constantes.listaRecords);
+    
+    /* try {
+        const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(agregaScore)
+        });
+
+        if (response.ok) {
+
+            const jsonResponse = await response.json();
+            console.log(jsonResponse);
+        }
+    
+    } catch (error) {
+         console.log(error);
+    } */
 }
 
 // -----------------------------------------------------------------------------
@@ -465,5 +526,7 @@ export {
     clearReset_fichas,
     fetching_records,
     mostrar_records,
-    borrarTodosChild
+    borrarTodosChild,
+    borrarLastChild,
+    check_entrarEnMejores10
 };
