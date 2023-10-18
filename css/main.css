@@ -67,7 +67,8 @@ html, body {
 .fichas__jugador {
     width: 400%;
     height: 90%;
-	background-image: url("./img/Chips/chipRedWhite_sideBorder.png");
+	background-image: url("../img/Chips/chipRedWhite_sideBorder.png");
+	/* background-image: url("./img/Chips/chipRedWhite_sideBorder.png"); */
 	/* background-image: url("./img/Chips/chipRedWhite_border.png"); */
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
